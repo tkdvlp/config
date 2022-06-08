@@ -36,7 +36,7 @@ require 'nvim-tree'.setup {
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_keymap('n', '<C-o>', ':NvimTreeOpen<CR>', { noremap = true, silent = true })
 --vim.api.nvim_set_keymap('n', '<C-c>', ':NvimTreeClose<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<C-f>', ':NvimTreeFocus<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-l>', ':NvimTreeFocus<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>r', ':NvimTreeRefresh<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
 
@@ -116,6 +116,12 @@ for _, lsp in pairs(servers) do
     on_attach = on_attach,
     capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
+end
+
+local buf_map = function(bufnr, mode, lhs, rhs, options)
+  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, options or {
+    silent = true,
+  })
 end
 
 require('lspconfig').tsserver.setup({
