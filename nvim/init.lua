@@ -95,6 +95,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
 --color
+vim.g.tokyonight_style = "night"
 vim.cmd [[colorscheme tokyonight]]
 
 --LSP
