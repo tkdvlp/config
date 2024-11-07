@@ -1,0 +1,29 @@
+typeset -U path PATH
+path=(/snap/bin ~/.local/bin ~/.cabal/bin /opt/openjdk-bin-11.0.20.1_p1/bin /opt/android-studio/bin ~/opt/activemq/bin ~/opt/Postman ~/.cargo/bin ~/.yarn/bin ~/.config/yarn/global/node_modules/.bin /opt/Hyper /opt/maven/bin /opt/jdk/bin $path)
+export PATH
+
+export JAVA_HOME="/opt/openjdk-bin-11.0.20.1_p1"
+export M2_HOME="/opt/maven"
+export M2="/opt/maven/bin"
+export NVM_DIR="/home/takuya/.nvm"
+
+export BROWSER="firefox"
+export EDITOR="nvim"
+export GOPATH="$HOME/go"
+
+LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:';
+export LS_COLORS
+
+export RADV_PERFTEST=rt
+
+export GTK_IM_MODULE=fcitx5
+export QT_IM_MODULE=fcitx5
+export SDL_IM_MODULE=fcitx5
+export XMODIFIERS=@im=fcitx5
+
+export MOZ_ENABLE_WAYLAND=1
+
+#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/bin/lib64"
+#export PKG_CONFIG_PATH="$(pkg-config --variable pc_path pkg-config)"
+#export PKG_CONFIG_PATH="/usr/local/bin/lib64/pkgconfig:/usr/local/bin/share/pkgconfig:$PKG_CONFIG_PATH"
+#export CPATH="/usr/local/bin/include/Fcitx5/Core:/usr/local/bin/include/Fcitx5/Config:/usr/local/bin/include/Fcitx5/Module:/usr/local/bin/include/Fcitx5/Utils"

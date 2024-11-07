@@ -1,0 +1,89 @@
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+
+[ -f "/home/takuya/.ghcup/env" ] && source "/home/takuya/.ghcup/env" # ghcup-env
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+autoload -Uz compinit
+
+compinit
+
+autoload -Uz colors zsh/terminfo
+colors
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git hg
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:git*' formats "%{${fg[cyan]}%}[%{${fg[green]}%}%s%{${fg[cyan]}%}][%{${fg[blue]}%}%r/%S%%{${fg[cyan]}%}][%{${fg[blue]}%}%b%{${fg[yellow]}%}%m%u%c%{${fg[cyan]}%}]%{$reset_color%}"
+
+setprompt() {
+  setopt prompt_subst
+
+  if [[ -n "$SSH_CLIENT"  ||  -n "$SSH2_CLIENT" ]]; then 
+    p_host='%F{yellow}%M%f'
+  else
+    p_host='%F{green}%M%f'
+  fi
+
+  PS1=${(j::Q)${(Z:Cn:):-$'
+    %F{cyan}[%f
+    %(!.%F{red}%n%f.%F{green}%n%f)
+    %F{cyan}@%f
+    ${p_host}
+    %F{cyan}][%f
+    %F{blue}%~%f
+    %F{cyan}]%f
+    %(!.%F{red}%#%f.%F{green}%#%f)
+    " "
+  '}}
+
+  precmd () { vcs_info }
+
+  PS2=$'%_>'
+  RPROMPT=$'${vcs_info_msg_0_}'
+}
+setprompt
+
+#zstyle ':completion:*' menu select
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+    function zle-line-init () {
+        printf '%s' "${terminfo[smkx]}"
+    }
+    function zle-line-finish () {
+        printf '%s' "${terminfo[rmkx]}"
+    }
+    zle -N zle-line-init
+    zle -N zle-line-finish
+fi
+
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+[[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
+[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
+
+alias wstop="WINEARCH=win32 wine /home/takuya/.wine/dosdevices/c:/'Program Files (x86)'/Splashtop/'Splashtop Remote'/'Client for STB'/strwinclt.exe"
+alias signkernel="sbsign --key /etc/efikeys/db.key --cert /etc/efikeys/db.crt --output /boot/EFI/Gentoo/bootx64.efi.signed /boot/EFI/Gentoo/bootx64.efi"
+alias luamake="/home/takuya/gitrepos/lua-language-server/3rd/luamake/luamake"
+alias ls="ls --color -F"
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
+alias wezterm="flatpak run org.wezfurlong.wezterm"
+alias mt5="wine ~/.wine/drive_c/'Program Files'/'MetaTrader 5'/terminal64.exe"
+alias mt5editor="wine ~/.wine/drive_c/'Program Files'/'MetaTrader 5'/MetaEditor64.exe"
+alias chrome="google-chrome-stable"
+
+#source <(ng completion script)
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pnpm
+export PNPM_HOME="/home/takuya/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+#
