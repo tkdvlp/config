@@ -64,6 +64,12 @@ return {
       --typescript-language-server
       lspconfig.ts_ls.setup({})
 
+      --pyright
+      lspconfig.pyright.setup({})
+
+      --biome
+      lspconfig.biome.setup({})
+
       local mason = require('mason')
       -- local masonlspconfig = require('mason-lspconfig')
 

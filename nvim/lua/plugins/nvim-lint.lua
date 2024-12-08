@@ -3,17 +3,23 @@ return {
     'mfussenegger/nvim-lint',
     config = function()
       local lint = require('lint')
+      local js_linters = { { 'biome', 'eslint_d' } }
       lint.linters_by_ft = {
-        lua = { 'eslint_d' },
-        -- python = { "pyright" },
-        -- You can customize some of the format options for the filetype (:help conform.format)
-        -- rust = { "rustfmt", lsp_format = "fallback" },
-        -- Conform will run the first available formatter
-        graphql = { 'eslint_d' },
-        markdown = { 'eslint_d' },
-        typescript = { 'eslint_d' },
-        javascript = { 'eslint_d' },
-        svelte = { 'eslint_d' },
+        typescript = js_linters,
+        javascript = js_linters,
+        javascriptreact = js_linters,
+        typescriptreact = js_linters,
+        jsx = js_linters,
+        tsx = js_linters,
+        svelte = js_linters,
+        graphql = js_linters,
+        json = js_linters,
+        jsonc = js_linters,
+        css = js_linters,
+        markdown = { 'markdownlint', 'cspell' },
+        lua = { 'cspell' },
+        python = { 'pylint' },
+        sh = { 'shellcheck', 'cspell' },
       }
     end,
   },
