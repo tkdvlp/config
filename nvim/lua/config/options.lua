@@ -20,6 +20,26 @@ vim.g.maplocalleader = '\\'
 -- always use system clipboard
 opt.clipboard = 'unnamedplus'
 
+-- wsl
+if vim.fn.has('wsl') then
+  vim.g.clipboard = {
+    name = 'wl-clipboard (wsl)',
+    copy = {
+      ['+'] = 'wl-copy --foreground --type text/plain',
+      ['*'] = 'wl-copy --foreground --primary --type text/plain',
+    },
+    paste = {
+      ['+'] = function()
+        return vim.fn.systemlist('wl-paste --no-newline|sed -e "s/\r$//"', { '' }, 1) -- '1' keeps empty lines
+      end,
+      ['*'] = function()
+        return vim.fn.systemlist('wl-paste --primary --no-newline|sed -e "s/\r$//"', { '' }, 1)
+      end,
+    },
+    cache_enabled = true,
+  }
+end
+
 -- Include current directory in path
 opt.path = '.'
 
